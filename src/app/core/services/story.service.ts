@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Observable, catchError, map, throwError } from 'rxjs';
 import { Story } from '../models/story.model';
+import { environment } from '../../../environments/environment';
 
 interface ApiEnvelope<T> {
   success?: boolean;
@@ -45,7 +46,7 @@ export interface StoryPage {
   providedIn: 'root'
 })
 export class StoryService {
-  private readonly endpoint = '/api/articles';
+  private readonly endpoint = `${environment.functionAppUrl}/api/articles`;
 
   constructor(private http: HttpClient) {}
 

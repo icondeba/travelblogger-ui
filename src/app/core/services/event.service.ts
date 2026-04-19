@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Observable, catchError, map, throwError } from 'rxjs';
 import { Event } from '../models/event.model';
+import { environment } from '../../../environments/environment';
 
 interface ApiEnvelope<T> {
   success?: boolean;
@@ -43,7 +44,7 @@ export interface EventPage {
   providedIn: 'root'
 })
 export class EventService {
-  private readonly endpoint = '/api/events';
+  private readonly endpoint = `${environment.functionAppUrl}/api/events`;
 
   constructor(private http: HttpClient) {}
 

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, catchError, map, throwError } from 'rxjs';
 import { AboutContent } from '../models/about.model';
+import { environment } from '../../../environments/environment';
 
 interface ApiEnvelope<T> {
   success?: boolean;
@@ -26,7 +27,7 @@ interface AboutApiModel {
   providedIn: 'root'
 })
 export class AboutService {
-  private readonly endpoint = '/api/about-me';
+  private readonly endpoint = `${environment.functionAppUrl}/api/about-me`;
 
   constructor(private http: HttpClient) {}
 

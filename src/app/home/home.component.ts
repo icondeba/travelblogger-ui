@@ -1,6 +1,6 @@
-import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { map, catchError, startWith, of, combineLatest, retry, delay } from 'rxjs';
+import { Component, inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { map, catchError, startWith, of, combineLatest } from 'rxjs';
 import { HomeService } from '../core/services/home.service';
 import { VideoService } from '../core/services/video.service';
 import { HeroComponent } from '../shared/hero.component';
@@ -22,10 +22,15 @@ import { Video } from '../core/models/video.model';
 export class HomeComponent {
   private homeService = inject(HomeService);
   private videoService = inject(VideoService);
+  private platformId = inject(PLATFORM_ID);
+
+  private featuredVideos$ = isPlatformBrowser(this.platformId)
+    ? this.videoService.getFeaturedVideos(10).pipe(map(videos => videos.slice(0, 3)), catchError(() => of([] as Video[])))
+    : of([] as Video[]);
 
   homeState$ = combineLatest([
     this.homeService.getHome(),
-    this.videoService.getFeaturedVideos(10).pipe(retry({ count: 2, delay: 3000 }), map(videos => videos.slice(0, 3)), catchError(() => of([] as Video[])))
+    this.featuredVideos$
   ]).pipe(
     map(([home, featuredVideos]) => ({
       ...home,

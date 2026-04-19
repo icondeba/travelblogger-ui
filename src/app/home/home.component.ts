@@ -1,6 +1,6 @@
-import { Component, inject, PLATFORM_ID } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { map, catchError, startWith, of, combineLatest } from 'rxjs';
+import { Component, inject, afterNextRender, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { map, catchError, startWith, of } from 'rxjs';
 import { HomeService } from '../core/services/home.service';
 import { VideoService } from '../core/services/video.service';
 import { HeroComponent } from '../shared/hero.component';
@@ -22,20 +22,10 @@ import { Video } from '../core/models/video.model';
 export class HomeComponent {
   private homeService = inject(HomeService);
   private videoService = inject(VideoService);
-  private platformId = inject(PLATFORM_ID);
 
-  private featuredVideos$ = isPlatformBrowser(this.platformId)
-    ? this.videoService.getFeaturedVideos(10).pipe(map(videos => videos.slice(0, 3)), catchError(() => of([] as Video[])))
-    : of([] as Video[]);
+  featuredVideos = signal<Video[]>([]);
 
-  homeState$ = combineLatest([
-    this.homeService.getHome(),
-    this.featuredVideos$
-  ]).pipe(
-    map(([home, featuredVideos]) => ({
-      ...home,
-      featuredVideos
-    })),
+  homeState$ = this.homeService.getHome().pipe(
     map((data) => ({ status: 'success', data } as LoadState<HomeContent>)),
     startWith({ status: 'loading' } as LoadState<HomeContent>),
     catchError(() => of({ status: 'error', error: 'Unable to load home content.' } as LoadState<HomeContent>))
@@ -46,4 +36,13 @@ export class HomeComponent {
     startWith({ status: 'loading' } as LoadState<Award[]>),
     catchError(() => of({ status: 'error', error: 'Unable to load awards.' } as LoadState<Award[]>))
   );
+
+  constructor() {
+    afterNextRender(() => {
+      this.videoService.getFeaturedVideos(10).pipe(
+        map(videos => videos.slice(0, 3)),
+        catchError(() => of([] as Video[]))
+      ).subscribe(videos => this.featuredVideos.set(videos));
+    });
+  }
 }

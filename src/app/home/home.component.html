@@ -63,7 +63,7 @@
               <p>Short films and behind-the-scenes footage from expeditions.</p>
             </div>
             <div class="grid">
-              <app-video-card *ngFor="let video of data.featuredVideos" [video]="video" />
+              <app-video-card *ngFor="let video of featuredVideos()" [video]="video" />
             </div>
           </section>
         </ng-container>

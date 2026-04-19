@@ -2,7 +2,7 @@ const functionAppUrl = 'https://travelblogger-service-ebdnd3aahbfuc7hx.centralin
 
 export const environment = {
   production: true,
-  apiBaseUrl: '',
+  apiBaseUrl: '/data',
   functionAppUrl,
   contactEndpoint: `${functionAppUrl}/api/contact-messages`,
   videosEndpoint: `${functionAppUrl}/api/videos`

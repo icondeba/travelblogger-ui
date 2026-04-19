@@ -1,0 +1,52 @@
+.story-detail {
+  padding: 3rem 0 4rem;
+  display: grid;
+  gap: 2rem;
+}
+
+.back-link {
+  text-decoration: none;
+  color: var(--text-secondary);
+}
+
+.hero-image {
+  width: 100%;
+  border-radius: 24px;
+  object-fit: cover;
+  box-shadow: var(--shadow-lg);
+}
+
+.story-header h1 {
+  margin-bottom: 0.5rem;
+}
+
+.story-content {
+  max-width: 720px;
+}
+
+.story-content ul {
+  padding-left: 1.2rem;
+  color: var(--text-secondary);
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+.gallery img {
+  width: 100%;
+  border-radius: 16px;
+  object-fit: cover;
+}
+
+.story-hero {
+  height: 320px;
+  border-radius: 24px;
+}
+
+.error {
+  color: #b91c1c;
+  padding: 2rem 0;
+}

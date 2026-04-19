@@ -1,0 +1,70 @@
+{
+  "hero": {
+    "title": "Modern mountaineering with a clear, calm approach.",
+    "subtitle": "Expedition leadership, alpine education, and high-altitude storytelling from the world’s most demanding ranges.",
+    "ctaText": "Plan an Expedition",
+    "ctaLink": "/contact",
+    "backgroundImage": "https://images.unsplash.com/photo-1482192505345-5655af888cc4?auto=format&fit=crop&w=1600&q=80"
+  },
+  "intro": {
+    "headline": "Guiding climbers with precision, respect, and responsibility.",
+    "description": "From logistics to summit strategy, every expedition is built on safety, preparation, and a deep respect for the mountain. Debasish supports climbers and teams with clear decision-making and alpine education.",
+    "stats": [
+      { "label": "Summit expeditions", "value": "54" },
+      { "label": "Years guiding", "value": "18" },
+      { "label": "Countries climbed", "value": "12" }
+    ]
+  },
+  "featuredStories": [
+    {
+      "slug": "k2-winter-ridge",
+      "title": "K2 Winter Ridge Strategy",
+      "excerpt": "A technical push on a narrow weather window with a small, fast-moving team.",
+      "image": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80",
+      "date": "January 2025",
+      "location": "Karakoram, Pakistan"
+    },
+    {
+      "slug": "everest-summit-window",
+      "title": "Everest Summit Window",
+      "excerpt": "How we navigated crowd management, oxygen strategy, and a late-season summit bid.",
+      "image": "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1200&q=80",
+      "date": "May 2024",
+      "location": "Khumbu, Nepal"
+    },
+    {
+      "slug": "patagonia-icefield",
+      "title": "Patagonia Icefield Traverse",
+      "excerpt": "A five-day traverse of blue-ice corridors with whiteout navigation drills.",
+      "image": "https://images.unsplash.com/photo-1500043357865-c6b8827edf7e?auto=format&fit=crop&w=1200&q=80",
+      "date": "November 2023",
+      "location": "Chile"
+    }
+  ],
+  "featuredVideos": [
+    {
+      "id": "L_jWHffIx5E",
+      "title": "Basecamp Logistics in the Himalayas",
+      "description": "Behind the scenes of a high-altitude basecamp operation.",
+      "date": "2024",
+      "location": "Nepal",
+      "duration": "6:32"
+    },
+    {
+      "id": "Zi_XLOBDo_Y",
+      "title": "Summit Day: Weather Decisions",
+      "description": "A concise breakdown of reading a weather window above 7,000m.",
+      "date": "2023",
+      "location": "Pakistan",
+      "duration": "4:58"
+    },
+    {
+      "id": "kXYiU_JCYtU",
+      "title": "Glacier Travel Essentials",
+      "description": "Rope techniques and crevasse rescue basics.",
+      "date": "2022",
+      "location": "Alaska",
+      "duration": "5:12"
+    }
+  ]
+}

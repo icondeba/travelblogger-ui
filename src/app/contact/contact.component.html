@@ -1,0 +1,50 @@
+<section class="container contact">
+  <div>
+    <p class="eyebrow">Contact</p>
+    <h1>Plan an expedition or request a collaboration.</h1>
+    <p class="lead">
+      Share your objective, timeline, and experience level. We will reply with a tailored expedition plan.
+    </p>
+    <div class="contact-details">
+      <div>
+        <h4>Basecamp Office</h4>
+        <p>Leh, Ladakh · 194101</p>
+      </div>
+      <div>
+        <h4>Email</h4>
+        <p>expeditions&#64;mountaineer.io</p>
+      </div>
+      <div>
+        <h4>Phone</h4>
+        <p>+91 90000 00000</p>
+      </div>
+    </div>
+  </div>
+
+  <form [formGroup]="contactForm" (ngSubmit)="submit()" class="contact-form">
+    <label>
+      Name
+      <input type="text" formControlName="name" placeholder="Your name" />
+    </label>
+    <label>
+      Email
+      <input type="email" formControlName="email" placeholder="you@example.com" />
+    </label>
+    <label>
+      Mobile Number
+      <input type="tel" formControlName="phoneNumber" placeholder="+919000000000" />
+      <small class="hint">Use international format (E.164), for example +14155552671</small>
+    </label>
+    <label>
+      Message
+      <textarea rows="5" formControlName="message" placeholder="Tell us about your objective"></textarea>
+    </label>
+    <button class="btn-primary" type="submit" [disabled]="isSubmitting">
+      {{ isSubmitting ? 'Sending...' : 'Submit Request' }}
+    </button>
+
+    <p class="feedback" [class.success]="submissionSuccess" *ngIf="submissionMessage">
+      {{ submissionMessage }}
+    </p>
+  </form>
+</section>

@@ -1,0 +1,33 @@
+.page-header {
+  padding: 3rem 0 2rem;
+}
+
+.lead {
+  color: var(--text-secondary);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.error {
+  color: #b91c1c;
+}
+
+.show-more {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0 3rem;
+}
+
+.show-more-btn[disabled] {
+  opacity: 0.75;
+  cursor: not-allowed;
+}
+
+.empty {
+  text-align: center;
+  color: var(--text-secondary);
+}

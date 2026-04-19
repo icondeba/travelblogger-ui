@@ -1,0 +1,12 @@
+<a class="event-card" [routerLink]="['/events', event.slug]">
+  <div class="media">
+    <img [src]="event.image" [alt]="event.title" loading="lazy" decoding="async" />
+    <span class="date-pill">{{ event.date }}</span>
+  </div>
+  <div class="content">
+    <p class="meta">{{ event.time }} · {{ event.location }}</p>
+    <h3>{{ event.title }}</h3>
+    <p>{{ event.summary }}</p>
+    <span class="link">View details</span>
+  </div>
+</a>

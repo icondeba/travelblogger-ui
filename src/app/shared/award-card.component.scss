@@ -1,0 +1,31 @@
+.award-card {
+  display: grid;
+  gap: 1rem;
+  background: white;
+  border-radius: 18px;
+  padding: 1.25rem;
+  border: 1px solid var(--border-light);
+}
+
+.award-card img {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.year {
+  font-weight: 600;
+  color: var(--primary);
+  margin: 0;
+}
+
+.org {
+  color: var(--text-secondary);
+  margin: 0.25rem 0;
+}
+
+.desc {
+  margin: 0;
+  color: var(--text-secondary);
+}

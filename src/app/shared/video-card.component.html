@@ -1,0 +1,10 @@
+<a class="video-card" [href]="videoUrl" target="_blank" rel="noopener noreferrer">
+  <div class="thumbnail">
+    <img [src]="thumbnailUrl" [alt]="video.title" loading="lazy" decoding="async" />
+    <span class="duration">{{ video.duration }}</span>
+  </div>
+  <div class="meta">
+    <h3>{{ video.title }}</h3>
+    <p>{{ video.location }} · {{ video.date }}</p>
+  </div>
+</a>

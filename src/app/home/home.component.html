@@ -1,0 +1,73 @@
+<div class="home">
+  <ng-container *ngIf="homeState$ | async as homeState">
+    <ng-container [ngSwitch]="homeState.status">
+      <div *ngSwitchCase="'loading'" class="hero skeleton"></div>
+      <div *ngSwitchCase="'error'" class="container error">{{ homeState.error }}</div>
+      <ng-container *ngSwitchCase="'success'">
+        <ng-container *ngIf="homeState.data as data">
+          <app-hero
+            [title]="data.hero.title"
+            [subtitle]="data.hero.subtitle"
+            [ctaText]="data.hero.ctaText"
+            [ctaLink]="data.hero.ctaLink"
+            [backgroundImage]="data.hero.backgroundImage"
+          />
+
+          <section class="intro container">
+            <div>
+              <p class="eyebrow">Meet the guide</p>
+              <h2>{{ data.intro.headline }}</h2>
+              <p class="lead">{{ data.intro.description }}</p>
+            </div>
+            <div class="stats">
+              <div *ngFor="let stat of data.intro.stats">
+                <h3>{{ stat.value }}</h3>
+                <p>{{ stat.label }}</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="awards container">
+            <div class="section-header">
+              <h2>Awards & Recognition</h2>
+              <p>International mountaineering awards and expedition acknowledgments.</p>
+            </div>
+            <ng-container *ngIf="awardsState$ | async as awardsState">
+              <ng-container [ngSwitch]="awardsState.status">
+                <div *ngSwitchCase="'loading'" class="awards-grid">
+                  <div class="skeleton card" *ngFor="let item of [1,2,3]"></div>
+                </div>
+                <div *ngSwitchCase="'error'" class="error">{{ awardsState.error }}</div>
+                <div *ngSwitchCase="'success'" class="awards-grid">
+                  <ng-container *ngIf="awardsState.data as awards">
+                    <app-award-card *ngFor="let award of awards" [award]="award" />
+                  </ng-container>
+                </div>
+              </ng-container>
+            </ng-container>
+          </section>
+
+          <section class="featured container">
+            <div class="section-header">
+              <h2>Featured Stories</h2>
+              <p>Field reports from alpine and high-altitude expeditions.</p>
+            </div>
+            <div class="grid">
+              <app-story-card *ngFor="let story of data.featuredStories" [story]="story" />
+            </div>
+          </section>
+
+          <section class="featured container">
+            <div class="section-header">
+              <h2>Featured Videos</h2>
+              <p>Short films and behind-the-scenes footage from expeditions.</p>
+            </div>
+            <div class="grid">
+              <app-video-card *ngFor="let video of data.featuredVideos" [video]="video" />
+            </div>
+          </section>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+</div>

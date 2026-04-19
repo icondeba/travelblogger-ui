@@ -1,0 +1,27 @@
+<section class="about-hero" *ngIf="aboutHeroState$ | async as aboutHeroState">
+  <div class="container about-grid" *ngIf="aboutHeroState.data as hero">
+    <img
+      [src]="hero.image"
+      alt="Mountaineer portrait"
+    />
+    <div>
+      <p class="eyebrow">About Debasish</p>
+      <h1>{{ hero.heading }}</h1>
+      <p *ngFor="let paragraph of hero.paragraphs">{{ paragraph }}</p>
+    </div>
+  </div>
+</section>
+
+<section class="timeline container">
+  <div class="section-header">
+    <h2>Milestones</h2>
+    <p>A timeline of expeditions, training programs, and key achievements.</p>
+  </div>
+  <div class="timeline-grid">
+    <div class="timeline-card" *ngFor="let milestone of milestones">
+      <span class="year">{{ milestone.year }}</span>
+      <h3>{{ milestone.title }}</h3>
+      <p>{{ milestone.description }}</p>
+    </div>
+  </div>
+</section>

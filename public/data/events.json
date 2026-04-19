@@ -1,0 +1,162 @@
+[
+  {
+    "slug": "himalayan-safety-workshop",
+    "title": "Himalayan Safety Workshop",
+    "summary": "A focused session on rope systems, avalanche awareness, and cold-weather risk planning.",
+    "image": "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1200&q=80",
+    "date": "March 18, 2026",
+    "time": "09:30 AM – 01:00 PM",
+    "location": "Kathmandu, Nepal",
+    "description": "Join the core expedition team for a half-day workshop covering updated safety protocols and field-tested decision frameworks used on high-altitude climbs.",
+    "agenda": [
+      "Morning briefing and gear check",
+      "Rope travel and anchor refreshers",
+      "Avalanche terrain assessment drills"
+    ],
+    "details": [
+      "Hands-on practice with modern protection setups",
+      "Small group coaching with expedition leaders",
+      "Take-home checklist for pre-climb planning"
+    ]
+  },
+  {
+    "slug": "alpine-navigation-intensive",
+    "title": "Alpine Navigation Intensive",
+    "summary": "A full-day route-finding clinic with GPS workflows and whiteout navigation practice.",
+    "image": "https://images.unsplash.com/photo-1441716844725-09cedc13a4e7?auto=format&fit=crop&w=1200&q=80",
+    "date": "April 10, 2026",
+    "time": "06:30 AM – 04:00 PM",
+    "location": "Chamonix, France",
+    "description": "This field intensive blends digital tools with classic map-and-compass skills to build confidence in complex alpine terrain.",
+    "agenda": [
+      "Pre-dawn route planning and waypoint setup",
+      "On-trail navigation scenarios",
+      "Debrief with track review and corrections"
+    ],
+    "details": [
+      "Bring a GPS device or smartphone with offline maps",
+      "Ideal for intermediate climbers and guides-in-training",
+      "Includes a downloadable navigation checklist"
+    ]
+  },
+  {
+    "slug": "glacier-rescue-drill",
+    "title": "Glacier Rescue Drill",
+    "summary": "Crevasse rescue systems, partner extraction, and team coordination under time pressure.",
+    "image": "https://images.unsplash.com/photo-1455218873509-8097305ee378?auto=format&fit=crop&w=1200&q=80",
+    "date": "May 2, 2026",
+    "time": "07:00 AM – 12:30 PM",
+    "location": "Zermatt, Switzerland",
+    "description": "We will run a guided set of rescue drills that mirror real expedition conditions, emphasizing clear roles and calm execution.",
+    "agenda": [
+      "Prusik and pulley system setup",
+      "Simulated crevasse fall response",
+      "Team rotation and time trials"
+    ],
+    "details": [
+      "All technical equipment provided on-site",
+      "Wear insulated layers and waterproof gloves",
+      "Participants receive a rescue flowchart card"
+    ]
+  },
+  {
+    "slug": "expedition-planning-summit",
+    "title": "Expedition Planning Summit",
+    "summary": "A strategy day focused on permits, logistics, and team readiness for 2026 climbs.",
+    "image": "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1200&q=80",
+    "date": "June 6, 2026",
+    "time": "10:00 AM – 05:00 PM",
+    "location": "Seattle, USA",
+    "description": "Spend a day with the leadership team building your 2026 expedition roadmap, from permit timing to acclimatization schedules.",
+    "agenda": [
+      "Permit timelines and logistics overview",
+      "Budgeting, transport, and support planning",
+      "Team roles and communication strategy"
+    ],
+    "details": [
+      "Includes planning templates and sample schedules",
+      "Dedicated Q&A time with lead guides",
+      "Recommended for team leaders and trip coordinators"
+    ]
+  },
+  {
+    "slug": "altitude-acclimatization-clinic",
+    "title": "Altitude Acclimatization Clinic",
+    "summary": "A practical clinic on oxygen management, pacing, and altitude nutrition for multi-day climbs.",
+    "image": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80",
+    "date": "July 12, 2026",
+    "time": "08:00 AM – 12:00 PM",
+    "location": "Denver, USA",
+    "description": "Dial in your acclimatization strategy with a focused review of sleep protocols, hydration targets, and pacing techniques used by high-altitude teams.",
+    "agenda": [
+      "Altitude physiology briefing",
+      "Pacing and rest cycle workshop",
+      "Oxygen and nutrition strategy lab"
+    ],
+    "details": [
+      "Includes a personalized acclimatization checklist",
+      "Short guided breathing and recovery session",
+      "Great for climbers preparing for 5,000m+ peaks"
+    ]
+  },
+  {
+    "slug": "ridge-line-photography-walk",
+    "title": "Ridge Line Photography Walk",
+    "summary": "Golden-hour ridge walk focused on composition, light, and storytelling in mountain terrain.",
+    "image": "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1200&q=80",
+    "date": "August 20, 2026",
+    "time": "04:30 PM – 07:30 PM",
+    "location": "Banff, Canada",
+    "description": "Capture dramatic light with guidance from expedition photographers and learn how to build visual narratives for your climbs.",
+    "agenda": [
+      "Golden-hour setup and exposure guidance",
+      "Composition walkthroughs on ridge terrain",
+      "Story sequencing and quick edits"
+    ],
+    "details": [
+      "Bring a DSLR or smartphone camera",
+      "Includes a printable field checklist",
+      "Open to beginners and advanced shooters"
+    ]
+  },
+  {
+    "slug": "monsoon-prep-briefing",
+    "title": "Monsoon Preparation Briefing",
+    "summary": "Weather windows, hazard mapping, and contingency planning for late-season expeditions.",
+    "image": "https://images.unsplash.com/photo-1482192505345-5655af888cc4?auto=format&fit=crop&w=1200&q=80",
+    "date": "September 9, 2026",
+    "time": "02:00 PM – 04:30 PM",
+    "location": "Thimphu, Bhutan",
+    "description": "A focused briefing on monsoon-era risk management, route alternatives, and decision checkpoints for high exposure routes.",
+    "agenda": [
+      "Seasonal pattern review and forecasts",
+      "Route hazard mapping exercise",
+      "Contingency planning roundtable"
+    ],
+    "details": [
+      "Includes a printable decision framework",
+      "Ideal for leaders planning late-season climbs",
+      "Q&A with local forecasting partners"
+    ]
+  },
+  {
+    "slug": "expedition-team-leadership-day",
+    "title": "Expedition Team Leadership Day",
+    "summary": "A leadership workshop on communication, decision-making, and team care in the field.",
+    "image": "https://images.unsplash.com/photo-1500043357865-c6b8827edf7e?auto=format&fit=crop&w=1200&q=80",
+    "date": "October 3, 2026",
+    "time": "09:00 AM – 03:30 PM",
+    "location": "Reykjavik, Iceland",
+    "description": "Build stronger teams through scenario-based leadership practice and communication drills led by veteran guides.",
+    "agenda": [
+      "Leadership styles and communication drills",
+      "Scenario planning and decision checkpoints",
+      "Team wellness and conflict resolution"
+    ],
+    "details": [
+      "Designed for team leads and assistant guides",
+      "Includes a leadership playbook PDF",
+      "Small group coaching format"
+    ]
+  }
+]

@@ -1,0 +1,29 @@
+<section class="page-header container">
+  <p class="eyebrow">Video Gallery</p>
+  <h1>Expedition films and alpine short stories.</h1>
+  <p class="lead">Watch route planning, summit days, and basecamp life from the field.</p>
+</section>
+
+<section class="container">
+  <div *ngIf="isLoading" class="grid">
+    <div class="skeleton card" *ngFor="let item of [1,2,3]"></div>
+  </div>
+
+  <div *ngIf="!isLoading && error" class="error">{{ error }}</div>
+
+  <ng-container *ngIf="!isLoading && !error">
+    <div class="grid" *ngIf="videos.length > 0; else emptyState">
+      <app-video-card *ngFor="let video of videos" [video]="video" />
+    </div>
+
+    <div class="show-more" *ngIf="hasMore">
+      <button type="button" class="btn-primary show-more-btn" (click)="loadMore()" [disabled]="isLoadingMore">
+        {{ isLoadingMore ? 'Loading...' : 'Show More' }}
+      </button>
+    </div>
+  </ng-container>
+
+  <ng-template #emptyState>
+    <p class="empty">No videos available right now.</p>
+  </ng-template>
+</section>

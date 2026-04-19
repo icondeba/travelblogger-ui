@@ -1,0 +1,26 @@
+<section class="container" *ngIf="storyState$ | async as storyState">
+  <ng-container [ngSwitch]="storyState.status">
+    <div *ngSwitchCase="'loading'" class="skeleton story-hero"></div>
+    <div *ngSwitchCase="'error'" class="error">{{ storyState.error }}</div>
+    <ng-container *ngSwitchCase="'success'">
+      <article class="story-detail" *ngIf="storyState.data as story">
+        <a routerLink="/stories" class="back-link">← Back to stories</a>
+        <img [src]="story.image" [alt]="story.title" class="hero-image" />
+        <div class="story-header">
+          <p class="meta">{{ story.location }} · {{ story.date }}</p>
+          <h1>{{ story.title }}</h1>
+          <p class="lead">{{ story.excerpt }}</p>
+        </div>
+        <div class="story-content">
+          <div [innerHTML]="story.content"></div>
+          <ul *ngIf="story.highlights.length">
+            <li *ngFor="let item of story.highlights">{{ item }}</li>
+          </ul>
+        </div>
+        <div class="gallery" *ngIf="story.gallery.length">
+          <img *ngFor="let image of story.gallery" [src]="image" alt="Expedition gallery" />
+        </div>
+      </article>
+    </ng-container>
+  </ng-container>
+</section>

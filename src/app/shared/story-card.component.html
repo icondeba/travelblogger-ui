@@ -1,0 +1,9 @@
+<a class="story-card" [routerLink]="['/stories', story.slug]">
+  <img [src]="story.image" [alt]="story.title" loading="lazy" decoding="async" />
+  <div class="content">
+    <p class="meta">{{ story.location }} · {{ story.date }}</p>
+    <h3>{{ story.title }}</h3>
+    <p>{{ story.excerpt }}</p>
+    <span class="link">Read story</span>
+  </div>
+</a>

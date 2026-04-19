@@ -1,0 +1,44 @@
+.video-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 16px;
+  overflow: hidden;
+  background: white;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+}
+
+.thumbnail {
+  position: relative;
+}
+
+.thumbnail img {
+  width: 100%;
+  display: block;
+}
+
+.duration {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  font-size: 0.75rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+}
+
+.meta {
+  padding: 1rem;
+}
+
+.meta h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
+}
+
+.meta p {
+  margin: 0;
+  color: var(--text-secondary);
+}

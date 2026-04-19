@@ -1,0 +1,32 @@
+<section class="container" *ngIf="eventState$ | async as eventState">
+  <ng-container [ngSwitch]="eventState.status">
+    <div *ngSwitchCase="'loading'" class="skeleton event-hero"></div>
+    <div *ngSwitchCase="'error'" class="error">{{ eventState.error }}</div>
+    <ng-container *ngSwitchCase="'success'">
+      <article class="event-detail" *ngIf="eventState.data as event">
+        <a routerLink="/events" class="back-link">← Back to events</a>
+        <img [src]="event.image" [alt]="event.title" class="hero-image" />
+        <div class="event-header">
+          <p class="meta">{{ event.date }} · {{ event.time }} · {{ event.location }}</p>
+          <h1>{{ event.title }}</h1>
+          <p class="lead">{{ event.summary }}</p>
+        </div>
+        <div class="event-content">
+          <p>{{ event.description }}</p>
+          <div class="detail-block" *ngIf="event.agenda.length">
+            <h3>Agenda</h3>
+            <ul>
+              <li *ngFor="let item of event.agenda">{{ item }}</li>
+            </ul>
+          </div>
+          <div class="detail-block" *ngIf="event.details.length">
+            <h3>What to expect</h3>
+            <ul>
+              <li *ngFor="let item of event.details">{{ item }}</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+    </ng-container>
+  </ng-container>
+</section>

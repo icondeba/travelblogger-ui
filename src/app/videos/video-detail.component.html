@@ -1,0 +1,25 @@
+<section class="container" *ngIf="videoState$ | async as videoState">
+  <ng-container [ngSwitch]="videoState.status">
+    <div *ngSwitchCase="'loading'" class="skeleton video-frame"></div>
+    <div *ngSwitchCase="'error'" class="error">{{ videoState.error }}</div>
+    <ng-container *ngSwitchCase="'success'">
+      <article class="video-detail" *ngIf="videoState.data as video">
+        <a routerLink="/videos" class="back-link">← Back to videos</a>
+        <div class="video-frame">
+          <iframe
+            [src]="getSafeUrl(video.id)"
+            title="{{ video.title }}"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
+        <div>
+          <p class="meta">{{ video.location }} · {{ video.date }} · {{ video.duration }}</p>
+          <h1>{{ video.title }}</h1>
+          <p class="lead">{{ video.description }}</p>
+        </div>
+      </article>
+    </ng-container>
+  </ng-container>
+</section>

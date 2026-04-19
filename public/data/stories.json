@@ -1,0 +1,59 @@
+[
+  {
+    "slug": "k2-winter-ridge",
+    "title": "K2 Winter Ridge Strategy",
+    "excerpt": "A technical push on a narrow weather window with a small, fast-moving team.",
+    "image": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80",
+    "date": "January 2025",
+    "location": "Karakoram, Pakistan",
+    "content": "We approached the ridge with a tight timeline and a singular goal: keep the team light, decisive, and safe. Each pitch was rehearsed with clear roles, and we shifted to a night movement plan to avoid unstable snow layers.",
+    "highlights": [
+      "Roped movement across mixed terrain",
+      "Staggered summit bid to manage exposure",
+      "Emergency bivouac planning"
+    ],
+    "gallery": [
+      "https://images.unsplash.com/photo-1482192505345-5655af888cc4?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80"
+    ]
+  },
+  {
+    "slug": "everest-summit-window",
+    "title": "Everest Summit Window",
+    "excerpt": "How we navigated crowd management, oxygen strategy, and a late-season summit bid.",
+    "image": "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1200&q=80",
+    "date": "May 2024",
+    "location": "Khumbu, Nepal",
+    "content": "The summit push was defined by short, clear windows. We aligned our rotation plan with a high-acclimatization protocol and prioritized quiet coordination at the South Col.",
+    "highlights": [
+      "Summit window analysis",
+      "Queue management on exposed traverses",
+      "Oxygen schedule planning"
+    ],
+    "gallery": [
+      "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1500043357865-c6b8827edf7e?auto=format&fit=crop&w=900&q=80"
+    ]
+  },
+  {
+    "slug": "patagonia-icefield",
+    "title": "Patagonia Icefield Traverse",
+    "excerpt": "A five-day traverse of blue-ice corridors with whiteout navigation drills.",
+    "image": "https://images.unsplash.com/photo-1500043357865-c6b8827edf7e?auto=format&fit=crop&w=1200&q=80",
+    "date": "November 2023",
+    "location": "Chile",
+    "content": "Patagonia tested every system: wind, visibility, and cold. We set a strict navigation cadence with route markers every 150 meters and practiced crevasse rescue in low visibility.",
+    "highlights": [
+      "Whiteout navigation",
+      "Team rotations to prevent fatigue",
+      "Daily radio check-ins"
+    ],
+    "gallery": [
+      "https://images.unsplash.com/photo-1500043357865-c6b8827edf7e?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1482192505345-5655af888cc4?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=900&q=80"
+    ]
+  }
+]

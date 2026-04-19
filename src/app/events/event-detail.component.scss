@@ -1,0 +1,44 @@
+.event-detail {
+  padding: 3rem 0 4rem;
+  display: grid;
+  gap: 2rem;
+}
+
+.back-link {
+  text-decoration: none;
+  color: var(--text-secondary);
+}
+
+.hero-image {
+  width: 100%;
+  border-radius: 24px;
+  object-fit: cover;
+  box-shadow: var(--shadow-lg);
+}
+
+.event-header h1 {
+  margin-bottom: 0.5rem;
+}
+
+.event-content {
+  max-width: 760px;
+}
+
+.detail-block {
+  margin-top: 1.5rem;
+}
+
+.detail-block ul {
+  padding-left: 1.2rem;
+  color: var(--text-secondary);
+}
+
+.event-hero {
+  height: 320px;
+  border-radius: 24px;
+}
+
+.error {
+  color: #b91c1c;
+  padding: 2rem 0;
+}

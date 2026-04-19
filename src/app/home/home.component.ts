@@ -25,7 +25,7 @@ export class HomeComponent {
 
   homeState$ = combineLatest([
     this.homeService.getHome(),
-    this.videoService.getFeaturedVideos(3).pipe(catchError(() => of([] as Video[])))
+    this.videoService.getFeaturedVideos(10).pipe(map(videos => videos.slice(0, 3)), catchError(() => of([] as Video[])))
   ]).pipe(
     map(([home, featuredVideos]) => ({
       ...home,

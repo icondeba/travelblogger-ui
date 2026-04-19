@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { map, catchError, startWith, of, combineLatest } from 'rxjs';
+import { map, catchError, startWith, of, combineLatest, retry, delay } from 'rxjs';
 import { HomeService } from '../core/services/home.service';
 import { VideoService } from '../core/services/video.service';
 import { HeroComponent } from '../shared/hero.component';
@@ -25,7 +25,7 @@ export class HomeComponent {
 
   homeState$ = combineLatest([
     this.homeService.getHome(),
-    this.videoService.getFeaturedVideos(10).pipe(map(videos => videos.slice(0, 3)), catchError(() => of([] as Video[])))
+    this.videoService.getFeaturedVideos(10).pipe(retry({ count: 2, delay: 3000 }), map(videos => videos.slice(0, 3)), catchError(() => of([] as Video[])))
   ]).pipe(
     map(([home, featuredVideos]) => ({
       ...home,

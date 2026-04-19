@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  apiBaseUrl: 'https://travelblogger-service-ebdnd3aahbfuc7hx.centralindia-01.azurewebsites.net',
-  contactEndpoint: '/api/contact-messages',
-  videosEndpoint: '/api/videos'
+  apiBaseUrl: '',
+  contactEndpoint: 'https://travelblogger-service-ebdnd3aahbfuc7hx.centralindia-01.azurewebsites.net/api/contact-messages',
+  videosEndpoint: 'https://travelblogger-service-ebdnd3aahbfuc7hx.centralindia-01.azurewebsites.net/api/videos'
 };

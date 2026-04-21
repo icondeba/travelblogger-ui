@@ -1,9 +1,7 @@
-export interface Award {
+export interface Milestone {
   id: string;
   year: string;
   title: string;
-  organization: string;
   description: string;
-  image: string;
   createdAt?: string;
 }

@@ -17,11 +17,20 @@
     <h2>Milestones</h2>
     <p>A timeline of expeditions, training programs, and key achievements.</p>
   </div>
-  <div class="timeline-grid">
-    <div class="timeline-card" *ngFor="let milestone of milestones">
+
+  <div *ngIf="milestonesLoading()" class="timeline-grid">
+    <div class="skeleton timeline-card" *ngFor="let i of [1,2,3,4]"></div>
+  </div>
+
+  <div class="timeline-grid" *ngIf="!milestonesLoading() && milestones().length > 0">
+    <div class="timeline-card" *ngFor="let milestone of milestones()">
       <span class="year">{{ milestone.year }}</span>
       <h3>{{ milestone.title }}</h3>
       <p>{{ milestone.description }}</p>
     </div>
   </div>
+
+  <p *ngIf="!milestonesLoading() && milestones().length === 0" class="empty">
+    No milestones listed yet.
+  </p>
 </section>

@@ -8,6 +8,7 @@ import { VideoDetailComponent } from './videos/video-detail.component';
 import { ContactComponent } from './contact/contact.component';
 import { EventsListComponent } from './events/events-list.component';
 import { EventDetailComponent } from './events/event-detail.component';
+import { AwardsListComponent } from './awards/awards-list.component';
 
 export const routes: Routes = [
   {
@@ -110,6 +111,17 @@ export const routes: Routes = [
       seo: {
         title: 'Contact | Mountaineer Debasish',
         description: 'Contact the team for expedition planning, events, partnerships, and media inquiries.',
+        type: 'website'
+      }
+    }
+  },
+  {
+    path: 'awards',
+    component: AwardsListComponent,
+    data: {
+      seo: {
+        title: 'Awards & Recognition | Mountaineer Debasish',
+        description: 'International mountaineering awards and expedition acknowledgments.',
         type: 'website'
       }
     }

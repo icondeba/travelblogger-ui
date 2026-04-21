@@ -1,0 +1,24 @@
+.page-header {
+  padding: 3rem 0 2rem;
+}
+
+.lead {
+  color: var(--text-secondary);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  padding-bottom: 3rem;
+}
+
+.empty {
+  color: var(--text-secondary);
+  padding: 2rem 0;
+}
+
+.error {
+  color: var(--danger, #dc2626);
+  padding: 1rem 0;
+}

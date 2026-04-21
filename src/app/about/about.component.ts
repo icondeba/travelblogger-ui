@@ -1,14 +1,10 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, afterNextRender, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { catchError, map, of, startWith } from 'rxjs';
 import { AboutService } from '../core/services/about.service';
+import { MilestoneService } from '../core/services/milestone.service';
 import { AboutContent } from '../core/models/about.model';
-
-interface Milestone {
-  year: string;
-  title: string;
-  description: string;
-}
+import { Milestone } from '../core/models/milestone.model';
 
 interface AboutHero {
   heading: string;
@@ -30,6 +26,11 @@ interface AboutHeroState {
 })
 export class AboutComponent {
   private aboutService = inject(AboutService);
+  private milestoneService = inject(MilestoneService);
+
+  milestones = signal<Milestone[]>([]);
+  milestonesLoading = signal(true);
+
   private readonly fallbackHero: AboutHero = {
     heading: 'Decades of alpine leadership and storytelling.',
     paragraphs: [
@@ -45,32 +46,19 @@ export class AboutComponent {
     catchError(() => of({ status: 'success', data: this.fallbackHero } as AboutHeroState))
   );
 
-  milestones: Milestone[] = [
-    {
-      year: '2012',
-      title: 'First Himalayan Expedition',
-      description: 'Led a small team to explore glacial routes and document mountain ecology.'
-    },
-    {
-      year: '2016',
-      title: 'Seven Summits Training Program',
-      description: 'Designed a multi-year training plan for climbers focusing on endurance and safety.'
-    },
-    {
-      year: '2020',
-      title: 'High-Altitude Rescue Initiative',
-      description: 'Partnered with local guides to create a rapid response protocol for expeditions.'
-    },
-    {
-      year: '2024',
-      title: 'Documentary Release',
-      description: 'Released a feature documentary about sustainable mountaineering practices.'
-    }
-  ];
+  constructor() {
+    afterNextRender(() => {
+      this.milestoneService.getMilestones().pipe(
+        catchError(() => of([] as Milestone[]))
+      ).subscribe(items => {
+        this.milestones.set(items);
+        this.milestonesLoading.set(false);
+      });
+    });
+  }
 
   private toHero(about: AboutContent): AboutHero {
     const paragraphs = this.toParagraphs(about.content);
-
     return {
       heading: about.heading?.trim() || this.fallbackHero.heading,
       paragraphs: paragraphs.length > 0 ? paragraphs : this.fallbackHero.paragraphs,
@@ -79,10 +67,7 @@ export class AboutComponent {
   }
 
   private toParagraphs(content: string): string[] {
-    if (!content?.trim()) {
-      return [];
-    }
-
+    if (!content?.trim()) return [];
     return content
       .replace(/\r\n/g, '\n')
       .split(/\n{2,}/)

@@ -4,4 +4,5 @@ export interface SeoRouteData {
   type?: 'website' | 'article' | 'video.other';
   keywords?: string;
   noindex?: boolean;
+  image?: string;
 }

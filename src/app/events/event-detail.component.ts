@@ -25,7 +25,8 @@ export class EventDetailComponent {
       this.seoService.applyRouteSeo({
         title: `${event.title} | Events | Mountaineer Debasish`,
         description: this.toDescription(event.summary, event.description),
-        type: 'article'
+        type: 'article',
+        image: event.image || undefined
       });
     }),
     map((data) => ({ status: 'success', data } as LoadState<Event>)),

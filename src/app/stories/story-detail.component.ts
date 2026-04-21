@@ -25,7 +25,8 @@ export class StoryDetailComponent {
       this.seoService.applyRouteSeo({
         title: `${story.title} | Stories | Mountaineer Debasish`,
         description: this.toDescription(story.excerpt, story.content),
-        type: 'article'
+        type: 'article',
+        image: story.image || undefined
       });
     }),
     map((data) => ({ status: 'success', data } as LoadState<Story>)),

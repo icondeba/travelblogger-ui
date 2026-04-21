@@ -27,7 +27,6 @@ export class HomeComponent {
   private awardService = inject(AwardService);
 
   featuredVideos = signal<Video[]>([]);
-  featuredAwards = signal<Award[]>([]);
 
   homeState$ = this.homeService.getHome().pipe(
     map((data) => ({ status: 'success', data } as LoadState<HomeContent>)),
@@ -35,17 +34,20 @@ export class HomeComponent {
     catchError(() => of({ status: 'error', error: 'Unable to load home content.' } as LoadState<HomeContent>))
   );
 
+  // Runs on SSR + browser — result cached in HTTP Transfer Cache, browser gets it instantly
+  awardsState$ = this.awardService.getAwards().pipe(
+    map((data) => ({ status: 'success', data: data.slice(0, 3) } as LoadState<Award[]>)),
+    startWith({ status: 'loading' } as LoadState<Award[]>),
+    catchError(() => of({ status: 'success', data: [] } as LoadState<Award[]>))
+  );
+
   constructor() {
+    // Videos use YouTube API — keep browser-only to avoid SSR issues
     afterNextRender(() => {
       this.videoService.getFeaturedVideos(10).pipe(
         map(videos => videos.slice(0, 3)),
         catchError(() => of([] as Video[]))
       ).subscribe(videos => this.featuredVideos.set(videos));
-
-      this.awardService.getAwards().pipe(
-        map(awards => awards.slice(0, 3)),
-        catchError(() => of([] as Award[]))
-      ).subscribe(awards => this.featuredAwards.set(awards));
     });
   }
 }

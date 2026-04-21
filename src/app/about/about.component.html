@@ -1,9 +1,6 @@
 <section class="about-hero" *ngIf="aboutHeroState$ | async as aboutHeroState">
   <div class="container about-grid" *ngIf="aboutHeroState.data as hero">
-    <img
-      [src]="hero.image"
-      alt="Mountaineer portrait"
-    />
+    <img [src]="hero.image" alt="Mountaineer portrait" />
     <div>
       <p class="eyebrow">About Debasish</p>
       <h1>{{ hero.heading }}</h1>
@@ -18,19 +15,19 @@
     <p>A timeline of expeditions, training programs, and key achievements.</p>
   </div>
 
-  <div *ngIf="milestonesLoading()" class="timeline-grid">
-    <div class="skeleton timeline-card" *ngFor="let i of [1,2,3,4]"></div>
-  </div>
-
-  <div class="timeline-grid" *ngIf="!milestonesLoading() && milestones().length > 0">
-    <div class="timeline-card" *ngFor="let milestone of milestones()">
-      <span class="year">{{ milestone.year }}</span>
-      <h3>{{ milestone.title }}</h3>
-      <p>{{ milestone.description }}</p>
+  <ng-container *ngIf="milestonesState$ | async as ms">
+    <div *ngIf="ms.status === 'loading'" class="timeline-grid">
+      <div class="skeleton timeline-card" *ngFor="let i of [1,2,3,4]"></div>
     </div>
-  </div>
-
-  <p *ngIf="!milestonesLoading() && milestones().length === 0" class="empty">
-    No milestones listed yet.
-  </p>
+    <div class="timeline-grid" *ngIf="ms.status === 'success' && ms.data && ms.data.length > 0">
+      <div class="timeline-card" *ngFor="let milestone of ms.data">
+        <span class="year">{{ milestone.year }}</span>
+        <h3>{{ milestone.title }}</h3>
+        <p>{{ milestone.description }}</p>
+      </div>
+    </div>
+    <p *ngIf="ms.status === 'success' && (!ms.data || ms.data.length === 0)" class="empty">
+      No milestones listed yet.
+    </p>
+  </ng-container>
 </section>

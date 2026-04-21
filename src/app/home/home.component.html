@@ -35,14 +35,14 @@
               </div>
               <a routerLink="/awards" class="see-more-btn">See More</a>
             </div>
-            <div class="awards-grid" *ngIf="featuredAwards().length > 0; else awardsLoading">
-              <app-award-card *ngFor="let award of featuredAwards()" [award]="award" />
-            </div>
-            <ng-template #awardsLoading>
-              <div class="awards-grid">
-                <div class="skeleton card" *ngFor="let item of [1,2,3]"></div>
+            <ng-container *ngIf="awardsState$ | async as awardsState">
+              <div *ngIf="awardsState.status === 'loading'" class="awards-grid">
+                <div class="skeleton card" *ngFor="let i of [1,2,3]"></div>
               </div>
-            </ng-template>
+              <div *ngIf="awardsState.status === 'success'" class="awards-grid">
+                <app-award-card *ngFor="let award of awardsState.data" [award]="award" />
+              </div>
+            </ng-container>
           </section>
 
           <section class="featured container">

@@ -1,10 +1,11 @@
-import { Component, inject, afterNextRender, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { catchError, map, of, startWith } from 'rxjs';
 import { AboutService } from '../core/services/about.service';
 import { MilestoneService } from '../core/services/milestone.service';
 import { AboutContent } from '../core/models/about.model';
 import { Milestone } from '../core/models/milestone.model';
+import { LoadState } from '../core/models/load-state.model';
 
 interface AboutHero {
   heading: string;
@@ -28,9 +29,6 @@ export class AboutComponent {
   private aboutService = inject(AboutService);
   private milestoneService = inject(MilestoneService);
 
-  milestones = signal<Milestone[]>([]);
-  milestonesLoading = signal(true);
-
   private readonly fallbackHero: AboutHero = {
     heading: 'Decades of alpine leadership and storytelling.',
     paragraphs: [
@@ -46,16 +44,12 @@ export class AboutComponent {
     catchError(() => of({ status: 'success', data: this.fallbackHero } as AboutHeroState))
   );
 
-  constructor() {
-    afterNextRender(() => {
-      this.milestoneService.getMilestones().pipe(
-        catchError(() => of([] as Milestone[]))
-      ).subscribe(items => {
-        this.milestones.set(items);
-        this.milestonesLoading.set(false);
-      });
-    });
-  }
+  // Runs on SSR — milestones embedded in page HTML, browser gets them instantly
+  milestonesState$ = this.milestoneService.getMilestones().pipe(
+    map((data) => ({ status: 'success', data } as LoadState<Milestone[]>)),
+    startWith({ status: 'loading' } as LoadState<Milestone[]>),
+    catchError(() => of({ status: 'success', data: [] } as LoadState<Milestone[]>))
+  );
 
   private toHero(about: AboutContent): AboutHero {
     const paragraphs = this.toParagraphs(about.content);

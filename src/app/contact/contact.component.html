@@ -25,20 +25,36 @@
     <label>
       Name
       <input type="text" formControlName="name" placeholder="Your name" />
+      <small class="error-msg" *ngIf="contactForm.controls.name.touched && contactForm.controls.name.invalid">
+        Name is required (minimum 2 characters).
+      </small>
     </label>
+
     <label>
       Email
       <input type="email" formControlName="email" placeholder="you@example.com" />
+      <small class="error-msg" *ngIf="contactForm.controls.email.touched && contactForm.controls.email.invalid">
+        A valid email address is required.
+      </small>
     </label>
+
     <label>
       Mobile Number
-      <input type="tel" formControlName="phoneNumber" placeholder="+919000000000" />
-      <small class="hint">Use international format (E.164), for example +14155552671</small>
+      <input type="tel" formControlName="phoneNumber" placeholder="+918902199900" />
+      <small class="hint">Include country code, e.g. +918902199900</small>
+      <small class="error-msg" *ngIf="contactForm.controls.phoneNumber.touched && contactForm.controls.phoneNumber.invalid">
+        Enter a valid phone number with country code (e.g. +918902199900).
+      </small>
     </label>
+
     <label>
       Message
       <textarea rows="5" formControlName="message" placeholder="Tell us about your objective"></textarea>
+      <small class="error-msg" *ngIf="contactForm.controls.message.touched && contactForm.controls.message.invalid">
+        Message is required (minimum 10 characters).
+      </small>
     </label>
+
     <button class="btn-primary" type="submit" [disabled]="isSubmitting">
       {{ isSubmitting ? 'Sending...' : 'Submit Request' }}
     </button>

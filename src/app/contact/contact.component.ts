@@ -28,7 +28,10 @@ export class ContactComponent {
   });
 
   submit(): void {
-    if (this.contactForm.invalid || this.isSubmitting) {
+    if (this.isSubmitting) return;
+
+    if (this.contactForm.invalid) {
+      this.contactForm.markAllAsTouched();
       return;
     }
 

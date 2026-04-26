@@ -21,6 +21,7 @@
     </div>
     <div class="timeline-grid" *ngIf="ms.status === 'success' && ms.data && ms.data.length > 0">
       <div class="timeline-card" *ngFor="let milestone of ms.data">
+        <div class="milestone-icon">🗺️</div>
         <span class="year">{{ milestone.year }}</span>
         <h3>{{ milestone.title }}</h3>
         <p>{{ milestone.description }}</p>

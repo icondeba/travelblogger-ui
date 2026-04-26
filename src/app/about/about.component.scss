@@ -32,6 +32,18 @@
   padding: 1.25rem;
 }
 
+.milestone-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: #ccfbf1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  margin-bottom: 0.75rem;
+}
+
 .timeline-card .year {
   color: var(--primary);
   font-weight: 700;

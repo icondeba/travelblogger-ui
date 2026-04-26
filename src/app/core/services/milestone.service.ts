@@ -6,7 +6,9 @@ import { Milestone } from '../models/milestone.model';
 
 interface ApiEnvelope<T> {
   success?: boolean;
+  Success?: boolean;
   data?: T;
+  Data?: T;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -17,7 +19,7 @@ export class MilestoneService {
 
   constructor(private http: HttpClient) {
     this.milestones$ = this.http.get<ApiEnvelope<Milestone[]>>(this.endpoint).pipe(
-      map((r) => r.data ?? (r as unknown as Milestone[])),
+      map((r) => r.data ?? r.Data ?? []),
       shareReplay(1)
     );
   }

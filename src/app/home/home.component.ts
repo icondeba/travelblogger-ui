@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { map, catchError, startWith, of } from 'rxjs';
 import { HomeService } from '../core/services/home.service';
+import { StoryService } from '../core/services/story.service';
 import { VideoService } from '../core/services/video.service';
 import { AwardService } from '../core/services/award.service';
 import { HeroComponent } from '../shared/hero.component';
@@ -12,6 +13,7 @@ import { VideoCardComponent } from '../shared/video-card.component';
 import { LoadState } from '../core/models/load-state.model';
 import { HomeContent } from '../core/models/home.model';
 import { Award } from '../core/models/award.model';
+import { Story } from '../core/models/story.model';
 import { Video } from '../core/models/video.model';
 
 @Component({
@@ -23,6 +25,7 @@ import { Video } from '../core/models/video.model';
 })
 export class HomeComponent {
   private homeService = inject(HomeService);
+  private storyService = inject(StoryService);
   private videoService = inject(VideoService);
   private awardService = inject(AwardService);
 
@@ -34,7 +37,12 @@ export class HomeComponent {
     catchError(() => of({ status: 'error', error: 'Unable to load home content.' } as LoadState<HomeContent>))
   );
 
-  // Runs on SSR + browser — result cached in HTTP Transfer Cache, browser gets it instantly
+  storiesState$ = this.storyService.getStoriesPage(3, 0).pipe(
+    map((page) => ({ status: 'success', data: page.items } as LoadState<Story[]>)),
+    startWith({ status: 'loading' } as LoadState<Story[]>),
+    catchError(() => of({ status: 'success', data: [] } as LoadState<Story[]>))
+  );
+
   awardsState$ = this.awardService.getAwards().pipe(
     map((data) => ({ status: 'success', data: data.slice(0, 3) } as LoadState<Award[]>)),
     startWith({ status: 'loading' } as LoadState<Award[]>),

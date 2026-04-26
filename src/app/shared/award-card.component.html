@@ -1,5 +1,10 @@
 <div class="award-card">
-  <img [src]="award.image" [alt]="award.title" />
+  <div class="award-image" *ngIf="award.image; else iconPlaceholder">
+    <img [src]="award.image" [alt]="award.title" />
+  </div>
+  <ng-template #iconPlaceholder>
+    <div class="award-icon">🏆</div>
+  </ng-template>
   <div>
     <p class="year">{{ award.year }}</p>
     <h3>{{ award.title }}</h3>

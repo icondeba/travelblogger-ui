@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, catchError, map, throwError } from 'rxjs';
+import { Observable, catchError, map, shareReplay, throwError } from 'rxjs';
 import { AboutContent } from '../models/about.model';
 import { environment } from '../../../environments/environment';
 
@@ -28,14 +28,19 @@ interface AboutApiModel {
 })
 export class AboutService {
   private readonly endpoint = `${environment.functionAppUrl}/api/about-me`;
+  private about$: Observable<AboutContent> | null = null;
 
   constructor(private http: HttpClient) {}
 
   getAbout(): Observable<AboutContent> {
-    return this.http.get<ApiEnvelope<AboutApiModel>>(this.endpoint).pipe(
-      map((response) => this.toAbout(this.unwrapData(response, 'Failed to load about content'))),
-      catchError((error) => this.handleError(error, 'Failed to load about content.'))
-    );
+    if (!this.about$) {
+      this.about$ = this.http.get<ApiEnvelope<AboutApiModel>>(this.endpoint).pipe(
+        map((response) => this.toAbout(this.unwrapData(response, 'Failed to load about content'))),
+        catchError((error) => this.handleError(error, 'Failed to load about content.')),
+        shareReplay(1)
+      );
+    }
+    return this.about$;
   }
 
   private toAbout(item: AboutApiModel): AboutContent {

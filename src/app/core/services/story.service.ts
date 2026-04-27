@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
-import { Observable, catchError, map, throwError } from 'rxjs';
+import { Observable, catchError, map, shareReplay, throwError } from 'rxjs';
 import { Story } from '../models/story.model';
 import { environment } from '../../../environments/environment';
 
@@ -47,55 +47,73 @@ export interface StoryPage {
 })
 export class StoryService {
   private readonly endpoint = `${environment.functionAppUrl}/api/articles`;
+  private readonly pageCache = new Map<string, Observable<StoryPage>>();
+  private stories$: Observable<Story[]> | null = null;
+  private readonly storyCache = new Map<string, Observable<Story>>();
 
   constructor(private http: HttpClient) {}
 
   getStoriesPage(limit: number, offset: number): Observable<StoryPage> {
-    const params = new HttpParams()
-      .set('limit', this.normalizeLimit(limit).toString())
-      .set('offset', this.normalizeOffset(offset).toString())
-      .set('publishedOnly', 'true');
+    const key = `${this.normalizeLimit(limit)}_${this.normalizeOffset(offset)}`;
+    if (!this.pageCache.has(key)) {
+      const params = new HttpParams()
+        .set('limit', this.normalizeLimit(limit).toString())
+        .set('offset', this.normalizeOffset(offset).toString())
+        .set('publishedOnly', 'true');
 
-    return this.http.get<ApiEnvelope<StoryListApiModel>>(this.endpoint, { params }).pipe(
-      map((response) => {
-        const payload = this.unwrapData(response, 'Failed to load stories');
-        const items = this.readProp<StoryApiModel[]>(payload, 'items', 'Items') ?? [];
-        const stories = items.map((item) => this.toStory(item));
-        const nextOffset = this.readProp<number | null>(payload, 'nextOffset', 'NextOffset') ?? null;
+      const obs = this.http.get<ApiEnvelope<StoryListApiModel>>(this.endpoint, { params }).pipe(
+        map((response) => {
+          const payload = this.unwrapData(response, 'Failed to load stories');
+          const items = this.readProp<StoryApiModel[]>(payload, 'items', 'Items') ?? [];
+          const stories = items.map((item) => this.toStory(item));
+          const nextOffset = this.readProp<number | null>(payload, 'nextOffset', 'NextOffset') ?? null;
 
-        return {
-          items: stories,
-          nextOffset,
-          hasMore: this.readProp<boolean>(payload, 'hasMore', 'HasMore') ?? nextOffset !== null
-        };
-      }),
-      catchError((error) => this.handleError(error, 'Failed to load stories.'))
-    );
+          return {
+            items: stories,
+            nextOffset,
+            hasMore: this.readProp<boolean>(payload, 'hasMore', 'HasMore') ?? nextOffset !== null
+          };
+        }),
+        catchError((error) => this.handleError(error, 'Failed to load stories.')),
+        shareReplay(1)
+      );
+      this.pageCache.set(key, obs);
+    }
+    return this.pageCache.get(key)!;
   }
 
   getStories(): Observable<Story[]> {
-    return this.http.get<ApiEnvelope<StoryApiModel[]>>(this.endpoint).pipe(
-      map((response) =>
-        this.unwrapData(response, 'Failed to load stories')
-          .filter((item) => this.isPublished(item))
-          .map((item) => this.toStory(item))
-      ),
-      catchError((error) => this.handleError(error, 'Failed to load stories.'))
-    );
+    if (!this.stories$) {
+      this.stories$ = this.http.get<ApiEnvelope<StoryApiModel[]>>(this.endpoint).pipe(
+        map((response) =>
+          this.unwrapData(response, 'Failed to load stories')
+            .filter((item) => this.isPublished(item))
+            .map((item) => this.toStory(item))
+        ),
+        catchError((error) => this.handleError(error, 'Failed to load stories.')),
+        shareReplay(1)
+      );
+    }
+    return this.stories$;
   }
 
   getStory(slug: string): Observable<Story> {
-    return this.http.get<ApiEnvelope<StoryApiModel>>(`${this.endpoint}/${encodeURIComponent(slug)}`).pipe(
-      map((response) => {
-        const item = this.unwrapData(response, 'Failed to load story');
-        if (!this.isPublished(item)) {
-          throw new Error('Story not found');
-        }
+    if (!this.storyCache.has(slug)) {
+      const obs = this.http.get<ApiEnvelope<StoryApiModel>>(`${this.endpoint}/${encodeURIComponent(slug)}`).pipe(
+        map((response) => {
+          const item = this.unwrapData(response, 'Failed to load story');
+          if (!this.isPublished(item)) {
+            throw new Error('Story not found');
+          }
 
-        return this.toStory(item);
-      }),
-      catchError((error) => this.handleError(error, 'Failed to load story.'))
-    );
+          return this.toStory(item);
+        }),
+        catchError((error) => this.handleError(error, 'Failed to load story.')),
+        shareReplay(1)
+      );
+      this.storyCache.set(slug, obs);
+    }
+    return this.storyCache.get(slug)!;
   }
 
   private toStory(item: StoryApiModel): Story {

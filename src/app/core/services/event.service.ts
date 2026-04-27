@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
-import { Observable, catchError, map, throwError } from 'rxjs';
+import { Observable, catchError, map, shareReplay, throwError } from 'rxjs';
 import { Event } from '../models/event.model';
 import { environment } from '../../../environments/environment';
 
@@ -45,43 +45,61 @@ export interface EventPage {
 })
 export class EventService {
   private readonly endpoint = `${environment.functionAppUrl}/api/events`;
+  private readonly pageCache = new Map<string, Observable<EventPage>>();
+  private events$: Observable<Event[]> | null = null;
+  private readonly eventCache = new Map<string, Observable<Event>>();
 
   constructor(private http: HttpClient) {}
 
   getEventsPage(limit: number, offset: number): Observable<EventPage> {
-    const params = new HttpParams()
-      .set('limit', this.normalizeLimit(limit).toString())
-      .set('offset', this.normalizeOffset(offset).toString());
+    const key = `${this.normalizeLimit(limit)}_${this.normalizeOffset(offset)}`;
+    if (!this.pageCache.has(key)) {
+      const params = new HttpParams()
+        .set('limit', this.normalizeLimit(limit).toString())
+        .set('offset', this.normalizeOffset(offset).toString());
 
-    return this.http.get<ApiEnvelope<EventListApiModel>>(this.endpoint, { params }).pipe(
-      map((response) => {
-        const payload = this.unwrapData(response, 'Failed to load events');
-        const items = this.readProp<EventApiModel[]>(payload, 'items', 'Items') ?? [];
-        const events = items.map((item) => this.toEvent(item));
-        const nextOffset = this.readProp<number | null>(payload, 'nextOffset', 'NextOffset') ?? null;
+      const obs = this.http.get<ApiEnvelope<EventListApiModel>>(this.endpoint, { params }).pipe(
+        map((response) => {
+          const payload = this.unwrapData(response, 'Failed to load events');
+          const items = this.readProp<EventApiModel[]>(payload, 'items', 'Items') ?? [];
+          const events = items.map((item) => this.toEvent(item));
+          const nextOffset = this.readProp<number | null>(payload, 'nextOffset', 'NextOffset') ?? null;
 
-        return {
-          items: events,
-          nextOffset,
-          hasMore: this.readProp<boolean>(payload, 'hasMore', 'HasMore') ?? nextOffset !== null
-        };
-      }),
-      catchError((error) => this.handleError(error, 'Failed to load events.'))
-    );
+          return {
+            items: events,
+            nextOffset,
+            hasMore: this.readProp<boolean>(payload, 'hasMore', 'HasMore') ?? nextOffset !== null
+          };
+        }),
+        catchError((error) => this.handleError(error, 'Failed to load events.')),
+        shareReplay(1)
+      );
+      this.pageCache.set(key, obs);
+    }
+    return this.pageCache.get(key)!;
   }
 
   getEvents(): Observable<Event[]> {
-    return this.http.get<ApiEnvelope<EventApiModel[]>>(this.endpoint).pipe(
-      map((response) => this.unwrapData(response, 'Failed to load events').map((item) => this.toEvent(item))),
-      catchError((error) => this.handleError(error, 'Failed to load events.'))
-    );
+    if (!this.events$) {
+      this.events$ = this.http.get<ApiEnvelope<EventApiModel[]>>(this.endpoint).pipe(
+        map((response) => this.unwrapData(response, 'Failed to load events').map((item) => this.toEvent(item))),
+        catchError((error) => this.handleError(error, 'Failed to load events.')),
+        shareReplay(1)
+      );
+    }
+    return this.events$;
   }
 
-  getEvent(slug: string): Observable<Event> {
-    return this.http.get<ApiEnvelope<EventApiModel>>(`${this.endpoint}/${encodeURIComponent(slug)}`).pipe(
-      map((response) => this.toEvent(this.unwrapData(response, 'Failed to load event'))),
-      catchError((error) => this.handleError(error, 'Failed to load event.'))
-    );
+  getEvent(id: string): Observable<Event> {
+    if (!this.eventCache.has(id)) {
+      const obs = this.http.get<ApiEnvelope<EventApiModel>>(`${this.endpoint}/${encodeURIComponent(id)}`).pipe(
+        map((response) => this.toEvent(this.unwrapData(response, 'Failed to load event'))),
+        catchError((error) => this.handleError(error, 'Failed to load event.')),
+        shareReplay(1)
+      );
+      this.eventCache.set(id, obs);
+    }
+    return this.eventCache.get(id)!;
   }
 
   private toEvent(item: EventApiModel): Event {

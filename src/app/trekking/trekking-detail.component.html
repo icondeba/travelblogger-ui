@@ -1,0 +1,68 @@
+<section class="container" *ngIf="trekState$ | async as trekState">
+  <ng-container [ngSwitch]="trekState.status">
+    <div *ngSwitchCase="'loading'" class="skeleton trek-hero"></div>
+    <div *ngSwitchCase="'error'" class="error">{{ trekState.error }}</div>
+    <ng-container *ngSwitchCase="'success'">
+      <article class="trek-detail" *ngIf="trekState.data as trek">
+        <a routerLink="/trekking" class="back-link">Back to trekking information</a>
+
+        <div class="hero-panel">
+          <img *ngIf="trek.image" [src]="trek.image" [alt]="trek.title" class="hero-image" />
+          <div class="hero-copy">
+            <p class="eyebrow">Trekking Details</p>
+            <h1>{{ trek.title }}</h1>
+            <p class="lead">{{ trek.summary }}</p>
+          </div>
+        </div>
+
+        <div class="facts">
+          <div>
+            <span>Location</span>
+            <strong>{{ trek.location }}</strong>
+          </div>
+          <div>
+            <span>Difficulty</span>
+            <strong>{{ trek.difficulty }}</strong>
+          </div>
+          <div>
+            <span>Duration</span>
+            <strong>{{ trek.duration }}</strong>
+          </div>
+          <div>
+            <span>Best Season</span>
+            <strong>{{ trek.bestSeason }}</strong>
+          </div>
+        </div>
+
+        <div class="content-grid">
+          <div class="main-content">
+            <section>
+              <h2>Trekking Details</h2>
+              <p>{{ trek.details }}</p>
+            </section>
+
+            <section>
+              <h2>Route</h2>
+              <ul *ngIf="trek.routePoints.length > 1; else routeParagraph">
+                <li *ngFor="let point of trek.routePoints">{{ point }}</li>
+              </ul>
+              <ng-template #routeParagraph>
+                <p>{{ trek.route }}</p>
+              </ng-template>
+            </section>
+          </div>
+
+          <aside class="map-card" *ngIf="trek.mapEmbedUrl">
+            <h2>Map</h2>
+            <iframe
+              [src]="safeMapUrl(trek.mapEmbedUrl)"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              allowfullscreen
+            ></iframe>
+          </aside>
+        </div>
+      </article>
+    </ng-container>
+  </ng-container>
+</section>

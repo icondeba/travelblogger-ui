@@ -15,7 +15,13 @@
       <a routerLink="/about" routerLinkActive="active" (click)="closeMenu()">About</a>
       <a routerLink="/stories" routerLinkActive="active" (click)="closeMenu()">Stories</a>
       <a routerLink="/videos" routerLinkActive="active" (click)="closeMenu()">Videos</a>
-      <a routerLink="/events" routerLinkActive="active" (click)="closeMenu()">Events</a>
+      <div class="nav-group" routerLinkActive="active">
+        <button class="nav-trigger" type="button">Explore</button>
+        <div class="nav-dropdown">
+          <a routerLink="/events" routerLinkActive="active" (click)="closeMenu()">Events</a>
+          <a routerLink="/trekking" routerLinkActive="active" (click)="closeMenu()">Trekking Details</a>
+        </div>
+      </div>
       <a routerLink="/contact" routerLinkActive="active" class="cta" (click)="closeMenu()">Contact</a>
     </div>
   </nav>

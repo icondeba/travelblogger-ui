@@ -1,0 +1,132 @@
+.trek-detail {
+  display: grid;
+  gap: 2rem;
+  padding: 3rem 0 4rem;
+}
+
+.back-link {
+  width: fit-content;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.back-link::before {
+  content: '< ';
+}
+
+.hero-panel {
+  display: grid;
+  overflow: hidden;
+  border: 1px solid var(--border-light);
+  border-radius: 24px;
+  background: white;
+  box-shadow: var(--shadow-lg);
+}
+
+.hero-image {
+  width: 100%;
+  height: min(48vh, 420px);
+  object-fit: cover;
+}
+
+.hero-copy {
+  padding: 1.5rem;
+}
+
+.hero-copy h1 {
+  max-width: 900px;
+  font-size: clamp(2.3rem, 5vw, 4.5rem);
+  line-height: 1.05;
+}
+
+.lead {
+  max-width: 760px;
+  color: var(--text-secondary);
+}
+
+.facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+.facts div {
+  padding: 1rem;
+  border: 1px solid var(--border-light);
+  border-radius: 16px;
+  background: white;
+  box-shadow: var(--shadow-sm);
+}
+
+.facts span {
+  display: block;
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.facts strong {
+  display: block;
+  margin-top: 0.35rem;
+}
+
+.content-grid {
+  display: grid;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.main-content,
+.map-card {
+  padding: 1.5rem;
+  border: 1px solid var(--border-light);
+  border-radius: 18px;
+  background: white;
+  box-shadow: var(--shadow-sm);
+}
+
+.main-content {
+  display: grid;
+  gap: 2rem;
+}
+
+.main-content h2,
+.map-card h2 {
+  margin-bottom: 0.75rem;
+}
+
+.main-content p,
+.main-content li {
+  color: var(--text-secondary);
+}
+
+.main-content ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.map-card iframe {
+  width: 100%;
+  min-height: 360px;
+  border: 0;
+  border-radius: 14px;
+}
+
+.trek-hero {
+  height: 320px;
+  border-radius: 24px;
+}
+
+.error {
+  color: #b91c1c;
+  padding: 2rem 0;
+}
+
+@media (min-width: 980px) {
+  .content-grid {
+    grid-template-columns: minmax(0, 1.2fr) minmax(340px, 0.8fr);
+  }
+}

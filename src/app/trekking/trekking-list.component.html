@@ -1,0 +1,44 @@
+<section class="page-header container">
+  <p class="eyebrow">Trekking Information</p>
+  <h1>Routes, terrain notes, and maps for planned treks.</h1>
+  <p class="lead">Explore practical trekking details curated for preparation, route awareness, and safer mountain movement.</p>
+</section>
+
+<section class="container">
+  <div *ngIf="isLoading" class="grid">
+    <div class="skeleton card" *ngFor="let item of [1,2,3]"></div>
+  </div>
+
+  <div *ngIf="!isLoading && error" class="error">{{ error }}</div>
+
+  <ng-container *ngIf="!isLoading && !error">
+    <div class="grid" *ngIf="items.length > 0; else emptyState">
+      <a class="trek-card" *ngFor="let item of items" [routerLink]="['/trekking', item.slug]">
+        <div class="media" [class.no-image]="!item.image">
+          <img *ngIf="item.image" [src]="item.image" [alt]="item.title" loading="lazy" decoding="async" />
+          <span class="difficulty">{{ item.difficulty }}</span>
+        </div>
+        <div class="content">
+          <p class="meta">{{ item.location }}</p>
+          <h3>{{ item.title }}</h3>
+          <p>{{ item.summary }}</p>
+          <div class="facts">
+            <span>{{ item.duration }}</span>
+            <span>{{ item.bestSeason }}</span>
+          </div>
+          <span class="link">View route and map</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="show-more" *ngIf="hasMore">
+      <button type="button" class="btn-primary show-more-btn" (click)="loadMore()" [disabled]="isLoadingMore">
+        {{ isLoadingMore ? 'Loading...' : 'Show More' }}
+      </button>
+    </div>
+  </ng-container>
+
+  <ng-template #emptyState>
+    <p class="empty">No trekking information available right now.</p>
+  </ng-template>
+</section>

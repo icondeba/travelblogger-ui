@@ -9,6 +9,8 @@ import { ContactComponent } from './contact/contact.component';
 import { EventsListComponent } from './events/events-list.component';
 import { EventDetailComponent } from './events/event-detail.component';
 import { AwardsListComponent } from './awards/awards-list.component';
+import { TrekkingListComponent } from './trekking/trekking-list.component';
+import { TrekkingDetailComponent } from './trekking/trekking-detail.component';
 
 export const routes: Routes = [
   {
@@ -100,6 +102,28 @@ export const routes: Routes = [
       seo: {
         title: 'Event | Mountaineer Debasish',
         description: 'Get complete details of this upcoming mountaineering event.',
+        type: 'article'
+      }
+    }
+  },
+  {
+    path: 'trekking',
+    component: TrekkingListComponent,
+    data: {
+      seo: {
+        title: 'Trekking Information | Mountaineer Debasish',
+        description: 'Explore trekking details, routes, difficulty, best season, and maps.',
+        type: 'website'
+      }
+    }
+  },
+  {
+    path: 'trekking/:slug',
+    component: TrekkingDetailComponent,
+    data: {
+      seo: {
+        title: 'Trekking Details | Mountaineer Debasish',
+        description: 'View trekking route, map, and preparation details.',
         type: 'article'
       }
     }

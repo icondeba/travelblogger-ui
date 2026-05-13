@@ -1,8 +1,35 @@
-<section class="hero" [style.background-image]="'linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.6)), url(' + backgroundImage + ')'">
+<section class="hero">
+  <div class="hero-media" aria-hidden="true">
+    <div
+      *ngFor="let image of heroImages; let i = index"
+      class="hero-slide"
+      [class.active]="i === activeSlide()"
+      [style.background-image]="'url(' + image + ')'"
+    >
+      <img
+        class="hero-image"
+        [src]="image"
+        alt=""
+        decoding="async"
+        [attr.fetchpriority]="i === 0 ? 'high' : null"
+      />
+    </div>
+  </div>
+
   <div class="container hero-content">
     <p class="eyebrow">High altitude. Low noise.</p>
     <h1>{{ title }}</h1>
     <p class="subtitle">{{ subtitle }}</p>
     <a class="btn-primary" [routerLink]="ctaLink">{{ ctaText }}</a>
+  </div>
+
+  <div class="hero-indicators">
+    <button
+      *ngFor="let image of heroImages; let i = index"
+      type="button"
+      [class.active]="i === activeSlide()"
+      [attr.aria-label]="'Show slide ' + (i + 1)"
+      (click)="selectSlide(i)"
+    ></button>
   </div>
 </section>

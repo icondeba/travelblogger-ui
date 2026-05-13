@@ -1,3 +1,10 @@
 .page {
   min-height: 70vh;
+  padding-top: 5.75rem;
+}
+
+@media (max-width: 700px) {
+  .page {
+    padding-top: 5rem;
+  }
 }

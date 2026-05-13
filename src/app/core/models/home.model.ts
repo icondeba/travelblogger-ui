@@ -7,6 +7,7 @@ export interface HeroContent {
   ctaText: string;
   ctaLink: string;
   backgroundImage: string;
+  backgroundImages?: string[];
 }
 
 export interface HomeIntroStat {
